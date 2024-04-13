@@ -5,6 +5,9 @@
         "iosfwd": "cpp",
         "vector": "cpp",
         "iostream": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "chrono": "cpp",
+        "algorithm": "cpp",
+        "ostream": "cpp"
     }
 }

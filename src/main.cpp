@@ -1,12 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
+#include <iomanip>
+#include <algorithm>
 
 using namespace std;
 using namespace std::chrono;
 
 double minmax1(const vector<int> vetor)
 {
+    auto inicio =steady_clock::now();
+
     int max = vetor[0];
     int min = vetor[0];
     int n = vetor.size();
@@ -21,13 +25,19 @@ double minmax1(const vector<int> vetor)
             min = vetor[i];
         }
     }
-    cout << min << endl;
-    cout << max <<endl;
-    return 0;
+
+    auto fim =steady_clock::now();
+    
+    auto tempo = fim - inicio;
+    
+    return duration_cast<duration<double>>(tempo).count() * 1e6; //;
+
 }
 
-double minmax2(const vector<int> vetor)
+double minmax3(const vector<int> vetor)
 {
+    auto inicio =steady_clock::now();
+
     int max = vetor[0];
     int min = vetor[0];
     int n = vetor.size();
@@ -66,11 +76,18 @@ double minmax2(const vector<int> vetor)
             }
         }
     }
-    return 0;
+    auto fim =steady_clock::now();
+    
+    auto tempo = fim - inicio;
+    
+    return duration_cast<duration<double>>(tempo).count()* 1e6; //  tempo da função é retornado em ns, queria ele em ms, basta multiplicar por 1e6.
+
 }
 
-double minmax3(const vector<int> vetor)
+double minmax2(const vector<int> vetor)
 {
+    auto inicio =steady_clock::now();
+    
     int max = vetor[0];
     int min = vetor[0];
     int n = vetor.size();
@@ -86,10 +103,14 @@ double minmax3(const vector<int> vetor)
         }
     }
 
-    cout << min << endl;
-    cout << max <<endl;
-    return 0;
+    auto fim =steady_clock::now();
+    
+    auto tempo = fim - inicio;
+    
+    return duration_cast<duration<double>>(tempo).count()* 1e6;
+
 }
+
 
 vector<int> gerarAleatorio(int tamanho){
     srand(time(0));
@@ -97,7 +118,7 @@ vector<int> gerarAleatorio(int tamanho){
     vector<int> vetor(tamanho);
     for (int i=0;i<tamanho;i++){
         vetor[i] = rand()%valormax;
-        cout << vetor[i] << "\n";
+        
     }
 
     return vetor;
@@ -108,30 +129,21 @@ void imprimirVetor(vector<int> vetor){
     for (int i=0;i<n;i++){
         cout << vetor[i] << "\n";
     }
+    cout << endl;
 }
 
 vector<int> crescente(vector<int>& vetor){
-    int n = vetor.size();
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (vetor[j] > vetor[j + 1]) {
-                // Troca os elementos se estiverem fora de ordem
-                int temp = vetor[j];
-                vetor[j] = vetor[j + 1];
-                vetor[j + 1] = temp;
-            }
-        }
-    }
-    return vetor;
+      sort(vetor.begin(), vetor.end());
+     return vetor;
 }
 
-vector<int> decrescente(vector<int> vetor){
-    int n = vetor.size();
-    //implementar
+vector<int> decrescente(vector<int>& vetor){
+     sort(vetor.begin(), vetor.end(), greater<int>());
+     return vetor;
 }
 
 double mediaMinMax1(vector<int>& vetor){
-    double media;
+    double media=0;
     for (int i =0;i<10;i++){
          media += minmax1(vetor);
     }
@@ -139,7 +151,7 @@ double mediaMinMax1(vector<int>& vetor){
 }
 
 double mediaMinMax2(vector<int>& vetor){
-    double media;
+    double media=0;
     for (int i =0;i<10;i++){
          media += minmax2(vetor);
     }
@@ -147,7 +159,7 @@ double mediaMinMax2(vector<int>& vetor){
 }
 
 double mediaMinMax3(vector<int>& vetor){
-    double media;
+    double media=0;
     for (int i =0;i<10;i++){
          media += minmax3(vetor);
     }
@@ -158,9 +170,61 @@ double mediaMinMax3(vector<int>& vetor){
 
 int main()
 {
-    vector<int> gerar = gerarAleatorio(10);
-    cout << endl;
-    crescente(gerar);
-    imprimirVetor(gerar);
+    vector<int> vetor1000 = gerarAleatorio(1000);
+    cout << vetor1000.size() <<",Aleatório,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor1000) <<"ms" << endl;
+    cout << vetor1000.size() <<",Aleatório,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor1000) <<"ms" << endl;
+    cout << vetor1000.size() <<",Aleatório,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor1000) <<"ms" << endl;
+    crescente(vetor1000);
+    cout << vetor1000.size() <<",Crescente,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor1000) <<"ms" << endl;
+    cout << vetor1000.size() <<",Crescente,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor1000) <<"ms" << endl;
+    cout << vetor1000.size() <<",Crescente,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor1000) <<"ms" << endl;
+    decrescente(vetor1000);
+    cout << vetor1000.size() <<",Decrescente,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor1000) <<"ms" << endl;
+    cout << vetor1000.size() <<",Decrescente,minMax2," << fixed << setprecision(3) << mediaMinMax1(vetor1000) <<"ms" << endl;
+    cout << vetor1000.size() <<",Decrescente,minMax3," << fixed << setprecision(3) << mediaMinMax1(vetor1000) <<"ms" << endl;
+    
+
+    vector<int> vetor10000 = gerarAleatorio(10000);
+    cout << vetor10000.size() <<",Aleatório,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor10000) <<"ms" << endl;
+    cout << vetor10000.size() <<",Aleatório,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor10000) <<"ms" << endl;
+    cout << vetor10000.size() <<",Aleatório,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor10000) <<"ms" << endl;
+    crescente(vetor10000);
+    cout << vetor10000.size() <<",Crescente,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor10000) <<"ms" << endl;
+    cout << vetor10000.size() <<",Crescente,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor10000) <<"ms" << endl;
+    cout << vetor10000.size() <<",Crescente,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor10000) <<"ms" << endl;
+    decrescente(vetor10000);
+    cout << vetor10000.size() <<",Decrescente,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor10000) <<"ms" << endl;
+    cout << vetor10000.size() <<",Decrescente,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor10000) <<"ms" << endl;
+    cout << vetor10000.size() <<",Decrescente,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor10000) <<"ms" << endl;
+    
+
+    vector<int> vetor100000 = gerarAleatorio(100000);
+    cout << vetor100000.size() <<",Aleatório,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor100000) <<"ms" << endl;
+    cout << vetor100000.size() <<",Aleatório,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor100000) <<"ms" << endl;
+    cout << vetor100000.size() <<",Aleatório,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor100000) <<"ms" << endl;
+    crescente(vetor100000);
+    cout << vetor100000.size() <<",Crescente,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor100000) <<"ms" << endl;
+    cout << vetor100000.size() <<",Crescente,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor100000) <<"ms" << endl;
+    cout << vetor100000.size() <<",Crescente,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor100000) <<"ms" << endl;
+    decrescente(vetor100000);
+    cout << vetor100000.size() <<",Decrescente,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor100000) <<"ms" << endl;
+    cout << vetor100000.size() <<",Decrescente,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor100000) <<"ms" << endl;
+    cout << vetor100000.size() <<",Decrescente,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor100000) <<"ms" << endl;
+
+    vector<int> vetor500k = gerarAleatorio(500000);
+    cout << vetor500k.size() <<",Aleatório,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor500k) <<"ms" << endl;
+    cout << vetor500k.size() <<",Aleatório,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor500k) <<"ms" << endl;
+    cout << vetor500k.size() <<",Aleatório,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor500k) <<"ms" << endl;
+    crescente(vetor500k);
+    cout << vetor500k.size() <<",Crescente,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor500k) <<"ms" << endl;
+    cout << vetor500k.size() <<",Crescente,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor500k) <<"ms" << endl;
+    cout << vetor500k.size() <<",Crescente,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor500k) <<"ms" << endl;
+    decrescente(vetor500k);
+    cout << vetor500k.size() <<",Decrescente,minMax1," << fixed << setprecision(3) << mediaMinMax1(vetor500k) <<"ms" << endl;
+    cout << vetor500k.size() <<",Decrescente,minMax2," << fixed << setprecision(3) << mediaMinMax2(vetor500k) <<"ms" << endl;
+    cout << vetor500k.size() <<",Decrescente,minMax3," << fixed << setprecision(3) << mediaMinMax3(vetor500k) <<"ms" << endl;
+
+    
+
     return 0; 
 }

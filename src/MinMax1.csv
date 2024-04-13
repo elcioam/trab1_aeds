@@ -1,0 +1,12 @@
+1000,Aleatório,minMax1,9.736ms
+10000,Aleatório,minMax1,80.324ms
+100000,Aleatório,minMax1,341.227ms
+500000,Aleatório,minMax1,1852.137ms
+1000,Crescente,minMax1,16.426ms
+10000,Crescente,minMax1,44.921ms
+100000,Crescente,minMax1,342.191ms
+500000,Crescente,minMax1,1708.328ms
+1000,Decrescente,minMax1,16.699ms
+10000,Decrescente,minMax1,44.719ms
+100000,Decrescente,minMax1,461.947ms
+500000,Decrescente,minMax1,1718.644ms
