@@ -1,12 +1,12 @@
-    1000,Aleatório,minMax2,9.917ms
-    10000,Aleatório,minMax2,78.843ms
-    100000,Aleatório,minMax2,358.303ms
-    500000,Aleatório,minMax2,1928.648ms
-    1000,Crescente,minMax2,16.405ms
-    10000,Crescente,minMax2,44.887ms
-    100000,Crescente,minMax2,366.719ms
-    500000,Crescente,minMax2,1823.950ms
-    1000,Decrescente,minMax2,15.812ms
-    10000,Decrescente,minMax2,45.041ms
-    100000,Decrescente,minMax2,362.361ms
-    500000,Decrescente,minMax2,1708.371ms
+1000,Aleatório,minMax2,0.0101ms
+10000,Aleatório,minMax2,0.0807ms
+100000,Aleatório,minMax2,0.3408ms
+500000,Aleatório,minMax2,1.7028ms
+1000,Crescente,minMax2,0.0157ms
+10000,Crescente,minMax2,0.0443ms
+100000,Crescente,minMax2,0.3730ms
+500000,Crescente,minMax2,1.6849ms
+1000,Decrescente,minMax2,0.0161ms
+10000,Decrescente,minMax2,0.0447ms
+100000,Decrescente,minMax2,0.3523ms
+500000,Decrescente,minMax2,1.8344ms
